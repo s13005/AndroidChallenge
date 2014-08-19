@@ -55,21 +55,75 @@ public class MainActivity extends Activity {
      */
     public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment() {
-        }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+            final Button button = (Button) rootView.findViewById(R.id.start_button);
+            button.setOnClickListener(new View.OnClickListener() {
+
+
+                @Override
+                public void onClick(View view) {
+                    DifficultyFragment fragment = DifficultyFragment.newInstance();
+                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                    transaction.replace(R.id.start_fragment, fragment);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    transaction.commit();
+                    button.setVisibility(View.INVISIBLE);
+                }
+            });
             return rootView;
 
         }
     }
 
-    @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
+
+    public static class DifficultyFragment extends Fragment {
+        public static DifficultyFragment newInstance() {
+            DifficultyFragment fragment = new DifficultyFragment();
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_difficulty, container, false);
+
+            Button easyButton = (Button) rootView.findViewById(R.id.easy_button);
+            Button normalButton = (Button) rootView.findViewById(R.id.normal_button);
+            Button hardButton = (Button) rootView.findViewById(R.id.hard_button);
+
+            easyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    difficultySelect("EASY");
+                }
+            });
+
+            normalButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    difficultySelect("NORMAL");
+                }
+            });
+
+            hardButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    difficultySelect("HARD");
+                }
+            });
+
+            return rootView;
+        }
+
+        private void difficultySelect(String difficulty) {
+
+            Intent intent = new Intent(getActivity(), GameActivity.class);
+            intent.putExtra("Difficulty", difficulty);
+            startActivity(intent);
+        }
     }
+
 }
