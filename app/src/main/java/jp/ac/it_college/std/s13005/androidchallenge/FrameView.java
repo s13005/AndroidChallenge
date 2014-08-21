@@ -6,8 +6,8 @@ import android.widget.FrameLayout;
 import android.graphics.Canvas;
 import android.view.View;
 
-public class FrameActivity extends View{
-    public FrameActivity(Context context){
+public class FrameView extends View{
+    public FrameView(Context context){
         super(context);
     }
 
