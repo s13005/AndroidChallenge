@@ -9,6 +9,11 @@ public class GameActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.print("aaaa");
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        setContentView(linearLayout);
+        linearLayout.addView(new FrameActivity(this));
+
+
     }
 }

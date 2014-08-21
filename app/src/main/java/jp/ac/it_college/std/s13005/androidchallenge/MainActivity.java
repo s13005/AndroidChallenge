@@ -2,11 +2,14 @@ package jp.ac.it_college.std.s13005.androidchallenge;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 
 public class MainActivity extends Activity {
@@ -23,26 +27,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
 
-        }*/
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -50,9 +39,6 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment {
 
         @Override
@@ -74,11 +60,35 @@ public class MainActivity extends Activity {
                     button.setVisibility(View.INVISIBLE);
                 }
             });
+
             return rootView;
 
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            new AlertDialog.Builder(this)
+                    .setTitle("終了の確認")
+                    .setMessage("本当に終了しますか")
+                    .setPositiveButton("はい",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton("いいえ",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            })
+                    .show();
+            return true;
+        }
+        else
+            return false;
+    }
 
     public static class DifficultyFragment extends Fragment {
         public static DifficultyFragment newInstance() {
@@ -125,5 +135,4 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
     }
-
 }
