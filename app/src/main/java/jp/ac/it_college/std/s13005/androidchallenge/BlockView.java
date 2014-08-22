@@ -9,14 +9,59 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.View;
 
-/**
- * Created by s13005 on 14/08/19.
- */
-public class BlockView extends View{
-    public BlockView(Context context) {
-        super(context);
-    }
+import java.util.Random;
 
+public class BlockView extends View{
+    public BlockView(Context context) {super(context);}
+
+    Random random = new Random(System.currentTimeMillis());
+
+    int[][][] blocks = {
+            {
+                    {1,1},
+                    {0,1},
+                    {0,1}
+            },
+            {
+                    {1,1},
+                    {1,0},
+                    {1,0}
+            },
+            {
+                    {1,1},
+                    {1,1}
+            },
+            {
+                    {1,0},
+                    {1,1},
+                    {1,0}
+            },
+            {
+                    {1,0},
+                    {1,1},
+                    {0,1}
+            },
+            {
+                    {0,1},
+                    {1,1},
+                    {1,0}
+            },
+            {
+                    {1},
+                    {1},
+                    {1},
+                    {1}
+            }
+    };
+
+    int[][] block = blocks[random.nextInt(blocks.length)];
+    int posx, posy;
+    int mapWidth = 20;
+    int mapHeight = 20;
+    int[][] map = new int[mapHeight][];
+
+
+/*
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -28,6 +73,6 @@ public class BlockView extends View{
         canvas.drawRect(rect, paint);
 
     }
-
+*/
 }
 
